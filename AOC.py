@@ -35,22 +35,39 @@ UULDRLUULURDRLDULURLUDULDRRDULULUDLLDURRRURDRLRLLRLDDLURRDLUUDLULRDULDRDLULULULD
 LLRUDRUUDUDLRDRDRRLRDRRUDRDURURRLDDDDLRDURDLRRUDRLLRDDUULRULURRRLRULDUURLRURLRLDUDLLDULULDUUURLRURUDDDDRDDLLURDLDRRUDRLDULLRULULLRURRLLURDLLLRRRRDRULRUDUDUDULUURUUURDDLDRDRUUURLDRULDUDULRLRLULLDURRRRURRRDRULULUDLULDDRLRRULLDURUDDUULRUUURDRRLULRRDLDUDURUUUUUURRUUULURDUUDLLUURDLULUDDLUUULLDURLDRRDDLRRRDRLLDRRLUDRLLLDRUULDUDRDDRDRRRLUDUDRRRLDRLRURDLRULRDUUDRRLLRLUUUUURRURLURDRRUURDRRLULUDULRLLURDLLULDDDLRDULLLUDRLURDDLRURLLRDRDULULDDRDDLDDRUUURDUUUDURRLRDUDLRRLRRRDUULDRDUDRLDLRULDL'''
 
 steps = input.splitlines()
-board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+board1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+board2 = [[0, 0, 1, 0, 0], 
+         [0, 2, 3, 4, 0],
+         [5, 6, 7, 8, 9],
+         [0, 'A', 'B', 'C', 0],
+         [0, 0, 'D', 0, 0]]
+
 direc = {'L': (0, -1), 'R': (0, 1), 'U': (-1, 0), 'D': (1, 0)}
-def parse(step, start = (1, 1)):
+
+def parse(step, start, board):
     rows, cols = len(board), len(board[0])
     row, col = start
     for c in step:
         move = direc[c]
         if row + move[0] >= 0 and row + move[0] < rows:
             if col + move[1] >= 0 and col + move[1] < cols:
-                row += move[0]
-                col += move[1]
+                if board[row + move[0]][col + move[1]] != 0:
+                    row += move[0]
+                    col += move[1]
     print(board[row][col])
     return (row, col)
 
-start = parse(input.splitlines()[0])
-for line in input.splitlines()[1:]:
-    start = parse(line, start)
+# part 1
+start = parse(steps[0], (1, 1), board1)
+for line in steps[1:]:
+    start = parse(line, start, board1)
+
+# part 2
+start = parse(steps[0], (2, 0), board2)
+for line in steps[1:]:
+    start = parse(line, start, board2)
+
+
 
 
