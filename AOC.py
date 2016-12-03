@@ -25,7 +25,31 @@ def parse(steps):
         y += direction[1] * distance
     return (x, y)
 
-parse(steps)
+print(parse(steps))
+
+###
+# part 2
+def findRep(steps):
+    (x, y) = (0, 0)
+    direction = (0, 1)
+    seen = set((0, 0))
+    for step in steps:
+        #print(step[0])
+        if step[0] == 'R':
+            direction = r[direction]
+        else:
+            direction = l[direction]
+        distance = int(step[1:])
+        for i in range(distance):
+            x += direction[0]
+            y += direction[1]
+            if (x, y) in seen:
+                return (x, y)
+            else:
+                seen.add((x, y))
+
+print(findRep(steps))
+
 
 ### day 2
 input = '''LRRLLLRDRURUDLRDDURULRULLDLRRLRLDULUDDDDLLRRLDUUDULDRURRLDULRRULDLRDUDLRLLLULDUURRRRURURULURRULRURDLULURDRDURDRLRRUUDRULLLLLDRULDDLLRDLURRLDUURDLRLUDLDUDLURLRLDRLUDUULRRRUUULLRDURUDRUDRDRLLDLDDDLDLRRULDUUDULRUDDRLLURDDRLDDUDLLLLULRDDUDDUUULRULUULRLLDULUDLLLLURRLDLUDLDDLDRLRRDRDUDDDLLLLLRRLLRLUDLULLDLDDRRUDDRLRDDURRDULLLURLRDLRRLRDLDURLDDULLLDRRURDULUDUDLLLDDDLLRLDDDLLRRLLURUULULDDDUDULUUURRUUDLDULULDRDDLURURDLDLULDUDUDDDDD
@@ -87,7 +111,7 @@ def legal(line):
     else:
         return True
 
-len(list(filter(lambda x: legal(x), input)))
+print(len(list(filter(lambda x: legal(x), input))))
 
 ###
 # part 2
@@ -95,10 +119,8 @@ board = [list(filter(lambda x:len(x) > 0, line.split())) for line in input]
 board = [[int(x) for x in line] for line in board]
 
 
-##
 def getCols(row, col):
     return [board[row][col], board[row + 1][col], board[row + 2][col]]
-
 
 def listLegal(edges):
     if edges[0] + edges[1] <= edges[2]:
@@ -113,7 +135,7 @@ def listLegal(edges):
 total = 0
 for row in range(0, len(input), 3):
     for col in range(3):
-        total += int(legal(getCols(row, col)))
+        total += int(listLegal(getCols(row, col)))
 
 print(total)
 
