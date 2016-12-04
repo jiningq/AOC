@@ -21,7 +21,8 @@ def parse(line):
         return 0
     else:
         return int(start)
-        
+
+print(sum([parse(line) for line in lines]))
 ####
 
 def shift(letter, n):
