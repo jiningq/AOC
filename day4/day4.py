@@ -35,4 +35,4 @@ def decrypt(line):
     
 
 validLines = list(filter(lambda line: parse(line) > 0, lines))
-list(filter(lambda line: decrypt(line).startswith('north'), validLines))
+print(list(filter(lambda line: decrypt(line).startswith('north'), validLines)))
