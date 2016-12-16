@@ -1,3 +1,5 @@
+using Nettle
+
 function md5(msg)
 	return hexdigest("md5", msg)
 end
